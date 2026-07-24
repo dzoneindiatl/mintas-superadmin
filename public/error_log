@@ -1,0 +1,5 @@
+[28-Nov-2025 11:56:02 UTC] PHP Warning:  file_get_contents(/tmp/adminer.version): Failed to open stream: Permission denied in /home/vasvijpr/superadmin.vasvi.in/public/myadmin.php on line 1377
+[28-Nov-2025 11:56:02 UTC] PHP Warning:  Trying to access array offset on false in /home/vasvijpr/superadmin.vasvi.in/public/myadmin.php on line 1386
+[28-Nov-2025 11:56:02 UTC] PHP Warning:  Trying to access array offset on false in /home/vasvijpr/superadmin.vasvi.in/public/myadmin.php on line 1386
+[19-Jun-2026 07:20:59 UTC] PHP Warning:  Maximum number of allowable file uploads has been exceeded in Unknown on line 0
+[27-Jun-2026 15:10:53 Asia/Kolkata] PHP Fatal error:  Cannot use empty array elements in arrays in /home/hellovasviecom/superadmin.vasvi.in/app/Exports/ProductMetaExport.php on line 42
