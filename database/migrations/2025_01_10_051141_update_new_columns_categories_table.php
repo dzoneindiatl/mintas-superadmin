@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->integer('width')->nullable()->after('category_order');
+            $table->integer('width')->nullable()->after('slug');
             $table->integer('height')->nullable()->after('width');
         });
     }
