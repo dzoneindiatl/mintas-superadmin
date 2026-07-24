@@ -3,64 +3,41 @@
     data-menu-styles="dark" data-toggled="close">
 
 <head>
-
-@php
-$fav_icon = Config('constant.SETTINGS_IMAGE_URL').Config('Site.fav_icon');
-@endphp
     <!-- Meta Data -->
     <meta charset="UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title> {{Config("Site.title")}}</title>
+    <title>Mintas Studio</title>
     <meta name="Description" content="Bootstrap Responsive Admin Web Dashboard HTML5 Template">
     <meta name="Author" content="">
-    <meta name="keywords"
-        content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
+    <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
 
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />    
     <!-- Favicon -->
     <link rel="icon" href="<?php echo env('WEBSITE_URL'); ?>/uploads/settings/AUG2025/1755170772-settings.png" type="image/x-icon">
-
     <!-- Choices JS -->
     <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
-
     <!-- Main Theme Js -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
-
     <!-- Bootstrap Css -->
-
     <link id="style" href="{{ asset('/assets/libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-
     <!-- Style Css -->
     <link href="{{ asset('/assets/css/styles.min.css') }}" rel="stylesheet">
-
     <!-- Icons Css -->
     <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-
     <!-- Node Waves Css -->
     <link href="{{ asset('assets/libs/node-waves/waves.min.css') }}" rel="stylesheet">
-
     <!-- Simplebar Css -->
     <link href="{{ asset('assets/libs/simplebar/simplebar.min.css') }}" rel="stylesheet">
-
     <!-- Color Picker Css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/flatpickr/flatpickr.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/@simonwep/pickr/themes/nano.min.css') }}">
-
     <!-- Choices Css -->
     <link rel="stylesheet" href="{{ asset('assets/libs/choices.js/public/assets/styles/choices.min.css') }}">
-
-
     <link rel="stylesheet" href="{{ asset('assets/libs/jsvectormap/css/jsvectormap.min.css') }}">
-
     <link rel="stylesheet" href="{{ asset('assets/libs/swiper/swiper-bundle.min.css') }}">
-
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ asset('assets/libs/sweetalert2/sweetalert2.min.css') }}">
-
     @stack('styles')
 
 </head>
@@ -664,86 +641,60 @@ $fav_icon = Config('constant.SETTINGS_IMAGE_URL').Config('Site.fav_icon');
     <!-- Scroll To Top -->
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     <!-- <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script> -->
-
     <!-- Popper JS -->
     <script src="{{ asset('assets/libs/@popperjs/core/umd/popper.min.js') }}"></script>
-
     <!-- Bootstrap JS -->
     <script src="{{ asset('assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-
     <!-- Defaultmenu JS -->
     <script src="{{ asset('assets/js/defaultmenu.min.js') }}"></script>
-
     <!-- Node Waves JS-->
     <script src="{{ asset('assets/libs/node-waves/waves.min.js') }}"></script>
-
     <!-- Sticky JS -->
     <script src="{{ asset('assets/js/sticky.js') }}"></script>
-
     <!-- Simplebar JS -->
     <script src="{{ asset('assets/libs/simplebar/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/js/simplebar.js') }}"></script>
-
     <!-- Color Picker JS -->
     <script src="{{ asset('assets/libs/@simonwep/pickr/pickr.es5.min.js') }}"></script>
-
     <script src="{{ asset('assets/libs/sweetalert2/sweetalert2.min.js') }}"></script>
     <script src="{{ asset('assets/js/sweet-alerts.js') }}"></script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- JSVector Maps JS -->
     <script src="{{ asset('assets/libs/jsvectormap/js/jsvectormap.min.js') }}"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.js"></script>
     <!-- JSVector Maps MapsJS -->
     <script src="{{ asset('assets/libs/jsvectormap/maps/world-merc.js') }}"></script>
-
     <!-- Apex Charts JS -->
     <script src="{{ asset('assets/libs/apexcharts/apexcharts.min.js') }}"></script>
-
     <!-- Chartjs Chart JS -->
     <script src="{{ asset('assets/libs/chart.js/chart.min.js') }}"></script>
-
     <!-- Custom-Switcher JS -->
     <script src="{{ asset('assets/js/custom-switcher.min.js') }}"></script>
-
     <!-- Custom JS -->
     <script src="{{ asset('assets/js/custom.js') }}"></script>
-
     <script src="{{ asset('assets/js/helper.js') }}"></script>
-    
     <!-- For drag and drop scripts -->
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
     @stack('scripts')
  <script>
     $(document).ready(function() {
-    // Get the CSRF token from the meta tag
-    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
     // When a notification is clicked, send an AJAX request to mark it as read
     $('.notificationchng').on('click', function(e) {
         e.preventDefault(); // Prevent the default link behavior
-
         // Get the notification ID from the data-id attribute
         var notificationId = $(this).data('id');
-
         // Perform the AJAX request to mark the notification as read
         $.ajax({
             url: '/notifications/' + notificationId + '/read', // The defined route
             method: 'PUT', // The PUT request to update the resource
             data: {
-                _token: csrfToken // Send the CSRF token with the request
+                "_token": "{{ csrf_token() }}",// Send the CSRF token with the request
             },
             success: function(response) {
                 // On success, update the unread notification count on the page
                 $('#notification-count').text(response.unreadCount);
-
                 // Optionally, you can add logic here to update the notification UI
                 $(this).find('.badge').remove(); // Remove "New" badge
             },
@@ -752,8 +703,6 @@ $fav_icon = Config('constant.SETTINGS_IMAGE_URL').Config('Site.fav_icon');
             }
         });
     });
-
-    
     // ✅ Drag and drop only for manage-priority page
     if (window.location.pathname === "/admin/category/manage-priority") {
         $("#sortableCategories").sortable();

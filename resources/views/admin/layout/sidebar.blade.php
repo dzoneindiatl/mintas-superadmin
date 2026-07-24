@@ -1,12 +1,9 @@
 <!-- Start::main-sidebar-header -->
-@php
-    $admin_logo = Config('constant.SETTINGS_IMAGE_URL') . Config('Site.admin_logo');
-@endphp
 <div class="main-sidebar-header">
     <a href="{{ route('admin-dashboard') }}" class="header-logo">
         {{-- <img src="{{ $admin_logo }}" alt="logo" class="desktop-logo">
         <img src="{{ $admin_logo }}" alt="logo" class="toggle-logo"> --}}
-        <img src="{{ $admin_logo }}" alt="logo" class="desktop-dark">
+        <img src="{{ asset('uploads/logo-white.png') }}" alt="logo" class="desktop-dark">
         {{-- <img src="{{ $admin_logo }}" alt="logo" class="toggle-dark">
         <img src="{{ $admin_logo }}" alt="logo" class="desktop-white">
         <img src="{{ $admin_logo }}" alt="logo" class="toggle-white"> --}}
