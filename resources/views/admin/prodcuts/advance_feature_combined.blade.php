@@ -1,7 +1,3 @@
-<!-- ===========================
-| Edit Variant Modal Section |
-=========================== -->
-
 <div id="formErrorPopup" class="alert alert-danger d-none">
     <strong>⚠️ Please fix the following:</strong>
     <ul class="mb-0" id="formErrorList"></ul>
@@ -72,14 +68,12 @@
                             </div>
                         </div>
 
-                        <!-- Quantity -->
                         <div class="col-12 mb-3">
                             <label for="v_quantity">Quantity *</label>
                             <input type="text" class="form-control v-quantity" name="v_quantity" id="v_quantity"
                                 placeholder="Variant Quantity">
                         </div>
 
-                        <!-- Submit Button -->
                         <div class="col-12 mt-3">
                             <button type="button" onclick="submit_form('edit_varient_form')"
                                 class="btn btn-primary">Submit</button>
@@ -136,7 +130,7 @@
                     <!-- End Code of Mohit -->
                     <div class="col-md-12 ">
                         <div class="row">
-                            <div class="col  mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="sku">SKU <span class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('sku') is-invalid @enderror"
@@ -149,20 +143,34 @@
                                     @endif
                                 </div>
                             </div>
-                            <div class="col  mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="hsn">HSN</label>
                                     <input type="text" class="form-control" id="hsn" name="hsn"
                                         placeholder="HSN" value="{{ $product->hsn }}">
                                 </div>
                             </div>
-                            <div class="col  mb-3">
+                            <div class="col-md-4 mb-3">
                                 <div class="form-group">
                                     <label for="bar_code">Barcode</label>
                                     <input type="text" class="form-control" id="bar_code" name="bar_code"
                                         value="{{ $product->bar_code }}" placeholder="Barcode">
                                 </div>
                             </div>
+                            @if($product->product_type == 1)
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="image">Product Image</label>
+                                        <input type="file" name="product_image[]" multiple id="product_image">
+                                    </div>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <div class="form-group">
+                                        <label for="video">Product Video</label>
+                                        <input type="file" name="product_video" id="product_video">
+                                    </div>
+                                </div>
+                            @endif 
                         </div>
                     </div>
                 </div>
@@ -432,6 +440,45 @@
                     </div>
                 </div>
 
+                <div class="card mt-3">
+                    <div class="card-body" id="variant_group_details">
+                        {!! $variantReleatedProduct !!}
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <h3><u>Seo Feature</u></h3>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="meta_title">Meta Title <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{$product->meta_title}}" />
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="meta_keywords">Meta Keywords</label>
+                            <input type="text" class="form-control" name="meta_keywords" id="meta_keywords" value="{{$product->meta_keywords}}"  />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="meta_description">Meta Description </label>
+                            <textarea class="form-control" name="meta_description" id="meta_description" cols="30" rows="3">{{$product->meta_description }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="seo_content">Web SEO Content </label>
+                            <textarea class="form-control" name="seo_content" id="seo_content" cols="30" rows="3">{{$product->seo_content }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
 
@@ -471,21 +518,13 @@
             </div>
 
             {{-- Variant Section --}}
-            <div class="card mt-3">
-                <!-- <div class="card-header d-flex justify-content-between align-items-center">
-                <h6>Variants</h6>
-                <div><strong>Grand Total Qty:</strong> <span id="t-qty" class="t-qty">0</span></div>
-            </div> -->
-                <div class="card-body" id="variant_group_details">
-                    {!! $variantReleatedProduct !!}
-                </div>
-            </div>
+            
 
-            <div class="mb-3 text-first btn_add">
+            <div class="mb-3 text-first btn_add mt-3">
                 <button type="button" class="btn btn-primary prevBtn"
                     onclick="onclickPrevious('Setp1')">Previous</button>
-                <button type="button" id="next" class="btn btn-primary nextBtn">Save & Continue</button>
-                <button type="button" id="finish" class="btn btn-primary nextBtn">Finish</button>
+                <button type="button" id="finish" class="btn btn-primary nextBtn">Save </button>
+                {{-- <button type="button" id="finish" class="btn btn-primary nextBtn">Finish</button> --}}
             </div>
         </div>
 
@@ -499,11 +538,11 @@
 
             <div class="card-body">
 
-                <!-- <div class="form-check form-switch">
+                {{-- <!-- <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="is_new" name="is_new"
                         @if (isset($product) && $product->is_new == 1) checked @endif />
                     <label class="form-check-label" for="status">New In</label>
-                </div> -->
+                </div> --> --}}
 
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="is_new"
@@ -512,7 +551,7 @@
                 </div>
 
 
-                <!-- <div class="form-check form-switch">
+                {{-- <!-- <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="is_featured"
                         name="is_featured" @if (isset($product) && $product->is_featured == 1) checked @endif />
                     <label class="form-check-label" for="is_featured">Featured Products</label>
@@ -528,7 +567,7 @@
                     <input class="form-check-input" type="checkbox" role="switch" id="status"
                         name="best_selling" @if (isset($product) && $product->best_selling == 1) checked @endif />
                     <label class="form-check-label" for="status">Best Selling</label>
-                </div> -->
+                </div> --> --}}
 
                 <div class="form-check form-switch">
                     <input class="form-check-input" type="checkbox" role="switch" id="status"
@@ -546,6 +585,7 @@
             <hr>
 
             @php
+                $selectedCollection = [];  
                 $selectedCategories = is_array(json_decode($product->category_id, true))
                     ? json_decode($product->category_id, true)
                     : [];
@@ -556,11 +596,12 @@
                 $selectedChildCategories = is_array(json_decode($product->child_category_id, true))
                     ? json_decode($product->child_category_id, true)
                     : [];
+                $selectedCollection[] = $product->collection_ids  ;     
             @endphp
 
             <div class="card-body">
 
-                @if ($activeCategorie->category_type_id == 2)
+                {{-- @if ($activeCategorie->category_type_id == 2) --}}
                     {{-- Main Category --}}
                     <div class="form-check">
                         <input class="form-check-input main-cat-checkbox" type="checkbox"
@@ -608,8 +649,8 @@
                             @endforeach
                         </div>
                     @endif
-                @endif
-            </div>
+                       {{-- @endif  --}}
+                </div>
 
 
 
@@ -624,21 +665,21 @@
 
             <!-- Add Code by mohit for multiple category selected -->
             <div class="card-body">
-                @foreach ($categories as $category)
-                    @if ($category->category_type_id == 1)
+                @foreach ($productCollection as $collections)
+                    {{-- @if ($category->category_type_id == 1) --}}
                         {{-- Main Category --}}
                         <div class="form-check">
                             <input class="form-check-input main-cat-checkbox" type="checkbox"
-                                id="main_cat_{{ $category->id }}" name="category_id[]" value="{{ $category->id }}"
-                                {{ in_array($category->id, $selectedCategories) ? 'checked' : '' }}
+                                id="main_cat_{{ $collections->id }}" name="category_id[]" value="{{ $collections->id }}"
+                                {{ in_array($collections->id, $selectedCollection) ? 'checked' : '' }}
                                 onchange="toggleSubCategories({{ $category->id }})">
-                            <label class="form-check-label" for="main_cat_{{ $category->id }}">
-                                {{ $category->name }}
+                            <label class="form-check-label" for="main_cat_{{ $collections->id }}">
+                                {{ $collections->title }}
                             </label>
                         </div>
 
                         {{-- Subcategories --}}
-                        <div id="subcategories_{{ $category->id }}" class="ms-3">
+                        {{-- <div id="subcategories_{{ $category->id }}" class="ms-3">
                             @foreach ($category->children as $sub)
                                 <div class="form-check">
                                     <input class="form-check-input sub-cat-checkbox" type="checkbox"
@@ -651,7 +692,7 @@
                                     </label>
                                 </div>
 
-                                {{-- Child Categories --}}
+                              
                                 <div id="childcategories_{{ $sub->id }}"
                                     class="ms-4 {{ in_array($sub->id, (array) $product_details->sub_category_id) ? '' : 'd-none' }}">
                                     @foreach ($sub->children as $child)
@@ -667,8 +708,8 @@
                                     @endforeach
                                 </div>
                             @endforeach
-                        </div>
-                    @endif
+                        </div> --}}
+                    {{-- @endif --}}
                 @endforeach
             </div>
 
@@ -685,7 +726,7 @@
             @php
                 $selectedTags = explode(',', $product->product_tags ?? '');
             @endphp
-            <!-- <div class="card-body">
+            {{-- <!-- <div class="card-body">
                 <div class="row">
                     <div class="col">
                         <div class="form-group">
@@ -702,7 +743,7 @@
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div> --> --}}
 
         </div>
     </div>
@@ -738,7 +779,11 @@
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 <script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
-
+<script>
+    CKEDITOR.replace('seo_content');
+    CKEDITOR.replace('meta_description');
+    CKEDITOR.replace('short_description'); 
+</script>
 
 <script>
     var getAttributesValues = "{{ route('admin-product-attribute-values') }}";
@@ -766,9 +811,11 @@
                 $(element).removeClass('is-invalid');
             }
         });
+        console.log($('#productForm').validate().errorList);
 
         $('.nextBtn').on('click', function(e) {
             var nextBtnId = $(this).attr('id');
+            console.log("next btn id--------",nextBtnId); 
             const $btn = $('.nextBtn');
             const originalHtml = $btn.html();
             e.preventDefault();
@@ -777,10 +824,10 @@
                 CKEDITOR.instances[instance].updateElement();
             }
             const form = $('#productForm');
-
+            console.log("complete form----",form); 
             if (form.valid()) {
                 const formData = new FormData(form[0]);
-
+                console.log("my form data",form)
                 $.ajax({
                     url: "{{ route('admin-product-save.step3') }}",
                     type: "POST",
@@ -863,6 +910,9 @@
                     }
 
                 });
+            }
+            else {
+                console.log("form is not valid "); 
             }
         });
     });

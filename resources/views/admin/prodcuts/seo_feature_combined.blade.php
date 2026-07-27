@@ -3,7 +3,6 @@
     <div class="card-body">
         <div class="row">
             <div class="col">
-              
 				 <input type="hidden"  name="product_id"  value="{{$product->id}}" />
                 <div class="form-group">
                     <label for="meta_title">Meta Title <span class="text-danger">*</span></label>

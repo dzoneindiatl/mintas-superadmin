@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Mintas Studio</title>
-
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="{{ asset('uploads/favicon-96x96.png') }}" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="{{ asset('uploads/favicon.svg') }}" />

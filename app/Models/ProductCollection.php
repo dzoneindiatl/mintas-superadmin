@@ -12,6 +12,10 @@ class ProductCollection extends Model
         'title',
         'description',
         'image',
-        'collection_type'
+        'collection_type',
+        'slug',
+        'is_active',
+        'show_on_home',
+        'show_on_menu'
     ];
 }

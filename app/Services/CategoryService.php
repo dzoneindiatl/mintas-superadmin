@@ -69,7 +69,6 @@ class CategoryService
                 'name'              => $data['name'],
                 'slug'              => $slug,
                 'parent_id'         => isset($data['parent_id']) ? base64_decode($data['parent_id']) : null,
-                'category_type_id'  => isset($data['select_category_type']) ? $data['select_category_type'] : 2,
                 'priority'          => $data['priority'] ?? null,
                 'description'       => $data['description'] ?? null,
                 'meta_title'        => $data['meta_title'] ?? null,
@@ -85,7 +84,7 @@ class CategoryService
                 'chart_description' => $data['chart_description'] ?? null,
                 'show_on_home' => $data['show_on_home'] ?? 0,
                 'show_on_menu' => $data['show_on_menu'] ?? 0,
-                'is_active' => $data['is_active'] ?? 0,
+                'is_active' => $data['is_active'] ?? 1,
                 'url'       => $data['url'] ?? null,
             ]);
 
@@ -142,16 +141,45 @@ class CategoryService
     private function uploadFile($file, $configPath)
     {
         $extension = $file->getClientOriginalExtension();
-        $fileName = time() . '.' . $extension;
+        // $fileName = time() . '.' . $extension;
         $folder = strtoupper(date('M') . date('Y')) . '/';
         $folderPath = config("constant.{$configPath}") . $folder;
-
+        $folderName = strtoupper(date('M') . date('Y')) . "/";
+        $fileName = time() . '-image.webp';
+        $extension = strtolower($file->getClientOriginalExtension());
        
         if (!File::exists($folderPath)) {
             File::makeDirectory($folderPath, 0777, true);
         }
 
-        $file->move($folderPath, $fileName);
+        // $file->move($folderPath, $fileName);
+        switch ($extension) {
+            case 'jpg':
+            case 'jpeg':
+                $image = imagecreatefromjpeg($file->getRealPath());
+                break;
+            case 'png':
+                $image = imagecreatefrompng($file->getRealPath());
+                imagepalettetotruecolor($image);
+                imagealphablending($image, true);
+                imagesavealpha($image, true);
+                break;
+
+            case 'gif':
+                $image = imagecreatefromgif($file->getRealPath());
+                break;
+
+            case 'webp':
+                $image = imagecreatefromwebp($file->getRealPath());
+                break;
+
+            default:
+                throw new \Exception('Unsupported image format.');
+        }
+                // Save as WebP (Quality: 80)
+        imagewebp($image, $folderPath . $fileName, 80);
+        imagedestroy($image);
+        // $imagePath = $folderName . $fileName;
         return $folder . $fileName;
     }
 

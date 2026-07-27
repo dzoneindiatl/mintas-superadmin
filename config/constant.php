@@ -35,6 +35,7 @@ return [
 	'CATEGORY_IMAGE_ROOT_PATH'                  => $BASE_PATH . 'uploads/category/',
 	'CATEGORY_IMAGE_URL'                       => $FRONT_WEBSITE_URL . 'uploads/category/',
 
+	'COLLECTION_IMAGE_URL'					=>$FRONT_WEBSITE_URL . '',
 	'CATEGORY_VIDEO_PATH'                       => $FRONT_WEBSITE_URL . 'uploads/categories-video/',
 	'CATEGORY_VIDEO_ROOT_PATH'                       => $BASE_PATH . 'uploads/category/',
 	'CATEGORY_VIDEO_URL'                       => $FRONT_WEBSITE_URL . 'public/uploads/categories-video/',

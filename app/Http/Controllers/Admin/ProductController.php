@@ -402,6 +402,7 @@ class ProductController extends Controller
 
     public function create(Request $request)
     {
+        
         try {
 
             $categories = Category::whereNull('parent_id')->where('is_active', 1)->where('is_deleted', 0)->get();

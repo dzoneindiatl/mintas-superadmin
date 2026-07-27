@@ -168,7 +168,8 @@
 
 <script src="{{ asset('assets/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
 <script>
-var routeName = '{{route($listRouteName)}}';
+var routeName = "{{ route('admin-collections.list') }}";
+console.log(routeName); 
 // Your DataTables initialization or other JavaScript logic here
 </script>
 <!-- Internal Datatables JS -->

@@ -7,6 +7,8 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Models\ProductCollection;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+
 
 class ProductCollectionController extends Controller
 {
@@ -26,83 +28,147 @@ class ProductCollectionController extends Controller
         View()->share('listRouteName', $this->listRouteName);
         $this->request = $request;
     }
-    public function index(Request $request)
-    {
-         try {
-            $DB = ProductCollection::query();
-            $sortBy = $request->input('sortBy') ? $request->input('sortBy') : 'created_at';
-            $order = $request->input('order') ? $request->input('order') : 'desc';
-            $offset = !empty($request->input('offset')) ? $request->input('offset') : 0;
-            $limit =  !empty($request->input('limit')) ? $request->input('limit') : Config("Reading.records_per_page");
+    // public function index(Request $request)
+    // {
+    //      try {
+    //         $DB = ProductCollection::query();
+    //         $sortBy = $request->input('sortBy') ? $request->input('sortBy') : 'created_at';
+    //         $order = $request->input('order') ? $request->input('order') : 'desc';
+    //         $offset = !empty($request->input('offset')) ? $request->input('offset') : 0;
+    //         $limit =  !empty($request->input('limit')) ? $request->input('limit') : Config("Reading.records_per_page");
 
-            if ($request->all()) {
-                $searchData            =    $request->all();
-                unset($searchData['display']);
-                unset($searchData['_token']);
-                if (isset($searchData['order'])) {
-                    unset($searchData['order']);
-                }
-                if (isset($searchData['sortBy'])) {
-                    unset($searchData['sortBy']);
-                }
-                if (isset($searchData['offset'])) {
-                    unset($searchData['offset']);
-                }
-                if (isset($searchData['limit'])) {
-                    unset($searchData['limit']);
-                }
-                if ((!empty($searchData['date_from'])) && (!empty($searchData['date_to']))) {
-                    $dateS = $searchData['date_from'];
-                    $dateE = $searchData['date_to'];
-                    $DB->whereBetween('price_drops.created_at', [$dateS . " 00:00:00", $dateE . " 23:59:59"]);
-                } elseif (!empty($searchData['date_from'])) {
-                    $dateS = $searchData['date_from'];
-                    $DB->where('price_drops.created_at', '>=', [$dateS . " 00:00:00"]);
-                } elseif (!empty($searchData['date_to'])) {
-                    $dateE = $searchData['date_to'];
-                    $DB->where('price_drops.created_at', '<=', [$dateE . " 00:00:00"]);
-                }
+    //         if ($request->all()) {
+    //             $searchData            =    $request->all();
+    //             unset($searchData['display']);
+    //             unset($searchData['_token']);
+    //             if (isset($searchData['order'])) {
+    //                 unset($searchData['order']);
+    //             }
+    //             if (isset($searchData['sortBy'])) {
+    //                 unset($searchData['sortBy']);
+    //             }
+    //             if (isset($searchData['offset'])) {
+    //                 unset($searchData['offset']);
+    //             }
+    //             if (isset($searchData['limit'])) {
+    //                 unset($searchData['limit']);
+    //             }
+    //             if ((!empty($searchData['date_from'])) && (!empty($searchData['date_to']))) {
+    //                 $dateS = $searchData['date_from'];
+    //                 $dateE = $searchData['date_to'];
+    //                 $DB->whereBetween('price_drops.created_at', [$dateS . " 00:00:00", $dateE . " 23:59:59"]);
+    //             } elseif (!empty($searchData['date_from'])) {
+    //                 $dateS = $searchData['date_from'];
+    //                 $DB->where('price_drops.created_at', '>=', [$dateS . " 00:00:00"]);
+    //             } elseif (!empty($searchData['date_to'])) {
+    //                 $dateE = $searchData['date_to'];
+    //                 $DB->where('price_drops.created_at', '<=', [$dateE . " 00:00:00"]);
+    //             }
 
-                foreach ($searchData as $fieldName => $fieldValue) {
-                    if ($fieldValue != "") {
-                        if ($fieldName == "title") {
-                            $DB->where("title", 'like', '%' . $fieldValue . '%');
-                        }
-                    }
-                }
-            }
+    //             foreach ($searchData as $fieldName => $fieldValue) {
+    //                 if ($fieldValue != "") {
+    //                     if ($fieldName == "title") {
+    //                         $DB->where("title", 'like', '%' . $fieldValue . '%');
+    //                     }
+    //                 }
+    //             }
+    //         }
             
-            $results = $DB->orderBy($sortBy, $order)->offset($offset)->limit($limit)->get();
+    //         $results = $DB->orderBy($sortBy, $order)->offset($offset)->limit($limit)->get();
 
-            $allProducts = Product::pluck('collection_ids')->filter()->toArray(); // Filter removes null/empty values
+    //         $allProducts = Product::pluck('collection_ids')->filter()->toArray(); // Filter removes null/empty values
 
-            $collectionCountMap = [];
+    //         $collectionCountMap = [];
 
-            // Build a count map for collection IDs
-            $collectionCountMap = collect($allProducts)
-            ->flatMap(fn($product) => explode(',', $product))
-            ->countBy();
-            foreach ($results as $result) {
-                $result->total_product = $collectionCountMap->get($result->id, 0); 
-            }
-            $totalResults = $DB->count();
-            if ($request->ajax()) {
+    //         // Build a count map for collection IDs
+    //         $collectionCountMap = collect($allProducts)
+    //         ->flatMap(fn($product) => explode(',', $product))
+    //         ->countBy();
+    //         foreach ($results as $result) {
+    //             $result->total_product = $collectionCountMap->get($result->id, 0); 
+    //         }
+    //         $totalResults = $DB->count();
+    //         if ($request->ajax()) {
 
-                return  view("admin.collections.load_more_data", compact('results', 'totalResults'));
-            } else {
+    //             return  view("admin.collections.load_more_data", compact('results', 'totalResults'));
+    //         } else {
 
-                return  view("admin.collections.index", compact('results', 'totalResults'));
-            }
-        } catch (Exception $e) {
-            Log::error($e);
-            return redirect()->back()->with(['error' => 'Something is wrong', 'error_msg' => $e->getMessage()]);
-        }
+    //             return  view("admin.collections.index", compact('results', 'totalResults'));
+    //         }
+    //     } catch (Exception $e) {
+    //         Log::error($e);
+    //         return redirect()->back()->with(['error' => 'Something is wrong', 'error_msg' => $e->getMessage()]);
+    //     }
         
-    }
+    // }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function index(Request $request)
+    {
+        try {
+
+            $sortBy = $request->input('sortBy', 'created_at');
+            $order  = $request->input('order', 'desc');
+            $offset = $request->input('offset', 0);
+            $limit  = $request->input('limit', Config('Reading.records_per_page'));
+
+            $DB = ProductCollection::query();
+            if ($request->filled('title')) {
+                $DB->where('title', 'like', '%' . trim($request->title) . '%');
+            }
+
+            if ($request->filled('date_from') && $request->filled('date_to')) {
+
+                $DB->whereBetween('created_at', [
+                    $request->date_from . ' 00:00:00',
+                    $request->date_to . ' 23:59:59'
+                ]);
+
+            } elseif ($request->filled('date_from')) {
+
+                $DB->where('created_at', '>=', $request->date_from . ' 00:00:00');
+
+            } elseif ($request->filled('date_to')) {
+
+                $DB->where('created_at', '<=', $request->date_to . ' 23:59:59');
+            }
+            $totalResults = (clone $DB)->count();
+            $results = $DB->orderBy($sortBy, $order)
+                        ->offset($offset)
+                        ->limit($limit)
+                        ->get();
+
+            // Collection Product Count
+            $collectionCountMap = Product::pluck('collection_ids')
+                ->filter()
+                ->flatMap(function ($item) {
+                    return explode(',', $item);
+                })
+                ->countBy();
+
+            $results->each(function ($result) use ($collectionCountMap) {
+                $result->total_product = $collectionCountMap->get($result->id, 0);
+            });
+
+            if ($request->ajax()) {
+                return view('admin.collections.load_more_data', compact('results', 'totalResults'));
+            }
+
+            return view('admin.collections.index', compact('results', 'totalResults'));
+
+        } catch (Exception $e) {
+
+            Log::error($e);
+
+            return redirect()->back()->with([
+                'error' => 'Something is wrong',
+                'error_msg' => $e->getMessage()
+            ]);
+        }
+    }
     public function create()
     {
         return view('admin.collections.create');
@@ -123,8 +189,8 @@ class ProductCollectionController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $fileName = time() . '-image.' . $extension;
+            // $extension = $file->getClientOriginalExtension();
+            $fileName = time() . '-image.webp';
 
             $folderName = strtoupper(date('M') . date('Y')) . "/";
             $folderPath = config('constant.COLLECTION_IMAGE_ROOT_PATH') . $folderName;
@@ -133,14 +199,47 @@ class ProductCollectionController extends Controller
                 File::makeDirectory($folderPath, 0777, true);
             }
 
-            $file->move($folderPath, $fileName);
-            $imagePath = $folderName . $fileName;
+            $extension = strtolower($file->getClientOriginalExtension());
+
+            switch ($extension) {
+
+                case 'jpg':
+                case 'jpeg':
+                    $image = imagecreatefromjpeg($file->getRealPath());
+                    break;
+
+                case 'png':
+                    $image = imagecreatefrompng($file->getRealPath());
+
+                    // PNG transparency preserve
+                    imagepalettetotruecolor($image);
+                    imagealphablending($image, true);
+                    imagesavealpha($image, true);
+                    break;
+
+                case 'gif':
+                    $image = imagecreatefromgif($file->getRealPath());
+                    break;
+
+                case 'webp':
+                    $image = imagecreatefromwebp($file->getRealPath());
+                    break;
+
+                default:
+                    throw new \Exception('Unsupported image format.');
+            }
+
+                // Save as WebP (Quality: 80)
+                imagewebp($image, $folderPath . $fileName, 80);
+                imagedestroy($image);
+                $imagePath = $folderName . $fileName;
         }
         ProductCollection::create([
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imagePath,
             'collection_type'=>$request->collection_type,
+            'slug'=>Str::slug($request->title)
         ]);
 
         Session()->flash('success', "Collection has been added successfully");
@@ -190,7 +289,6 @@ class ProductCollectionController extends Controller
 
         $input = $request->except('image');
         $imagePath = $model->image;
-
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
@@ -206,7 +304,7 @@ class ProductCollectionController extends Controller
             $file->move($folderPath, $fileName);
             $imagePath = $folderName . $fileName;
         }
-
+        $input['slug'] = Str::slug($input['title']); 
         $model->update(array_merge($input, ['image' => $imagePath]));
         return redirect()->route('admin-collections.index')
             ->withSuccess('Product collection updated successfully.');

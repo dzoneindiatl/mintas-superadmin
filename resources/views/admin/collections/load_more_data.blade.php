@@ -17,11 +17,13 @@
                     class="ri-edit-line"></i></a>
             @endcan
             @can('delete_collection')
-                <form method="GET" action="{{route('admin-collections.destroy',base64_encode($result->id))}}">
+                <form method="POST" action="{{ route('admin-collections.destroy', base64_encode($result->id)) }}">
                     @csrf
-                    <input name="_method" type="hidden" value="DELETE">
-                    <button type="submit" class="btn btn-danger" id="confirm-button"><i
-                            class="ri-delete-bin-5-line"></i></button>
+                    @method('DELETE')
+
+                    <button type="submit" class="btn btn-danger" id="confirm-button">
+                        <i class="ri-delete-bin-5-line"></i>
+                    </button>
                 </form>
             @endcan
 

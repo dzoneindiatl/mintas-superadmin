@@ -33,17 +33,17 @@
        
         <ul class="nav nav-tabs mb-4" id="formTabs">
             <li class="nav-item">
-                <a class="nav-link active" data-tab="tab1" href="javascript:void(0)">Select Category</a>
+                <a class="nav-link active" data-tab="tab1" href="javascript:void(0)">Basic Details</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-tab="tab2" href="javascript:void(0)">Select Variant</a>
+                <a class="nav-link" data-tab="tab2" href="javascript:void(0)">Advance Details</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-tab="tab3" href="javascript:void(0)">Advance Feature</a>
-            </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
+                <a class="nav-link" data-tab="tab3" href="javascript:void(0)">Advance Details</a>
+            </li> --}}
+            {{-- <li class="nav-item">
                 <a class="nav-link" data-tab="tab4" href="javascript:void(0)">SEO Feature</a>
-            </li>
+            </li> --}}
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="tab1">

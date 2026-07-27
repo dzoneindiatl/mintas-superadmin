@@ -70,6 +70,16 @@
                                                 </div>
                                                 @endif
                                             </div>
+                                            <div class="col-xl-6">
+                                                <div class="home-checkbox">
+                                                        <label for="Show on ">Show on Home Page</label>
+                                                        <input type="checkbox" value="1" name="show_on_home_page" @if($model->show_on_home) checked @endif>
+                                                    </div>
+                                                    <div class="home-checkbox">
+                                                        <label for="Show on ">Show on Menu</label>
+                                                        <input type="checkbox"value="1" name="show_on_menu" @if($model->show_on_menu) checked @endif>
+                                                    </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

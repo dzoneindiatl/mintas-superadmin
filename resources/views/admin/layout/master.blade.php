@@ -5,6 +5,7 @@
 <head>
     <!-- Meta Data -->
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=no'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Mintas Studio</title>
@@ -14,7 +15,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />    
     <!-- Favicon -->
-    <link rel="icon" href="<?php echo env('WEBSITE_URL'); ?>/uploads/settings/AUG2025/1755170772-settings.png" type="image/x-icon">
+    <link rel="icon" href="{{ asset('uploads/favicon.svg') }}" type="image/x-icon">
     <!-- Choices JS -->
     <script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
     <!-- Main Theme Js -->

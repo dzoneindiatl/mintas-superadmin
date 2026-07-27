@@ -52,10 +52,11 @@
                                                <select name="collection_type" class="form-control" required>
                                                     <option value="man">Man</option>
                                                     <option value="women">Woman</option>
+                                                    <option value="Kids">Kids</option>
                                                 </select>
-                                                @if ($errors->has('title'))
+                                                @if ($errors->has('collection_type'))
                                                     <div class=" invalid-feedback">
-                                                        {{ $errors->first('title') }}
+                                                        {{ $errors->first('collection_type') }}
                                                     </div>
                                                 @endif
                                             </div>
@@ -81,6 +82,16 @@
                                                     {{ $errors->first('image') }}
                                                 </div>
                                                 @endif
+                                            </div>
+                                            <div class="col-xl-6">
+                                                <div class="home-checkbox">
+                                                        <label for="Show on ">Show on Home Page</label>
+                                                        <input type="checkbox" value="1"name="show_on_home_page">
+                                                    </div>
+                                                    <div class="home-checkbox">
+                                                        <label for="Show on ">Show on Menu</label>
+                                                        <input type="checkbox"value="1" name="show_on_menu">
+                                                    </div>
                                             </div>
                                         </div>
                                         
@@ -117,7 +128,7 @@
 
 {{-- <script src="{{ asset('assets/js/fileupload.js') }}"></script> --}}
 <script src="{{ asset('assets/plugin/jquery-validation/jquery.validate.min.js') }}"></script>
-<!-- <script src="{{ asset('assets/js/form-validation.js') }}"></script> -->
+{{-- <script src="{{ asset('assets/js/form-validation.js') }}"></script> --}}
 <script>
     CKEDITOR.replace('description', {
         filebrowserUploadUrl: '{{ url('base/uploder') }}',

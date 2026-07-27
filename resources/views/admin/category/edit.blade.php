@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if(isset($pageTitle) && $pageTitle == 'Categories')
+                    {{-- @if(isset($pageTitle) && $pageTitle == 'Categories')
                     <div class="row">
                         <div class="col-xl-6">
                             <div class="card-body p-0">
@@ -107,7 +107,7 @@
                             </div>
                         </div>
                     </div>
-                    @endif
+                    @endif --}}
 
                 
                     @if(isset($pageTitle) && $pageTitle != 'Categories')

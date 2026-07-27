@@ -43,7 +43,7 @@
                 </li>
         @else
             <?php
-            $menus = getMenusFromAcl(); //Session()->get('acls');
+            $menus = getMenusFromAcl();
             
             echo sideBarNavigationNew($menus);
             ?>
@@ -59,3 +59,6 @@
 
 </div>
 <!-- End::main-sidebar -->
+
+
+{{--   catalogue -----bx bx-package side-menu__icon --}}

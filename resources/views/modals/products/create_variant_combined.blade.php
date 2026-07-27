@@ -61,10 +61,10 @@
         <button type="button" class="btn btn-success" id="addVariant">+ Add Variant</button>
     </div>
 
-    <div class="mb-3 text-end btn_add_new">
+    {{-- <div class="mb-3 text-end btn_add_new">
         <button type="button" class="btn btn-primary prevBtn" onclick="onclickPrevious('Setp1')">Previous</button>
         <button type="button" class="btn btn-primary nextBtn" onclick="submitProductStep2()">Save & Continue</button>
-    </div>
+    </div> --}}
 </div>
 
 <meta name="csrf-token" content="{{ csrf_token() }}">
